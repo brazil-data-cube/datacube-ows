@@ -146,6 +146,8 @@ def lower_get_args():
         for v in request.args.getlist(k):
             _v = unquote(v)
             # Identify proj4 string
+            # This validation checks if the inserted CRS is a projstring if so,
+            # treat it to allow its use in the rest of the code
             if kl in ['crs', 'response_crs']:
                 if 'proj' in _v.lower():
                     _v = _v.replace('+', '')
