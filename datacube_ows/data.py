@@ -152,7 +152,8 @@ class DataStacker(object):
             bands = self.needed_bands()
         time_slices = []
         for dt in datasets.time.values:
-            tds = datasets.sel(time=dt)
+            _dt = str(dt).split('T')[0]
+            tds = datasets.sel(time=_dt)
             merged = None
             for ds in tds.values.item():
                 d = self.read_data_for_single_dataset(ds, measurements, self._geobox, **kwargs)
@@ -255,7 +256,8 @@ def get_map(args):
             extent = None
             extent_crs = None
             for dt in datasets.time.values:
-                tds = datasets.sel(time=dt)
+                _dt = str(dt).split('T')[0]
+                tds = datasets.sel(time=_dt)
                 for ds in tds.values.item():
                     if extent:
                         new_extent = bbox_to_geom(ds.extent.boundingbox, ds.extent.crs)
